@@ -1,7 +1,16 @@
 import SwiftUI
 
+
+
 struct ContentView: View {
+    
+    @State var playerCard = "card7"
+    @State var cpuCard = "card8"
+    @State var playerScore = 0
+    @State var cpuScore = 0
+    
     var body: some View {
+        
         ZStack {
             Color(.indigo)
                 .ignoresSafeArea()
@@ -11,20 +20,20 @@ struct ContentView: View {
                     .padding()
                 HStack {
                     Spacer()
-                    Image("card13")
+                    Image(playerCard)
                     Spacer()
-                    Image("card12")
+                    Image(cpuCard)
                     Spacer()
                 }
-
                 
-                Button(action: {
-                    print("button clicked")
-                }) {
+                Button {
+                    deal()
+                } label: {
                     Image("button")
                 }
-                
-               
+                .padding(.vertical)
+
+
                 HStack {
                     Spacer()
                     Text("Player")
@@ -44,12 +53,12 @@ struct ContentView: View {
                 
                 HStack {
                     Spacer()
-                    Text("0")
+                    Text(String(playerScore))
                         .font(.title)
                         .fontWeight(.regular)
                         .foregroundColor(Color.white)
                     Spacer()
-                    Text("0")
+                    Text(String(cpuScore))
                         .font(.title)
                         .fontWeight(.regular)
                         .foregroundColor(Color.white)
@@ -60,6 +69,28 @@ struct ContentView: View {
             }
             
         }
+    }
+    
+    
+    func deal() {
+        var playerValue = Int.random(in: 2...14)
+        var cpuValue = Int.random(in: 2...14)
+        playerCard = "card" + String(playerValue)
+        cpuCard = "card" + String(cpuValue)
+        
+        if playerValue > cpuValue {
+            playerScore = playerScore + 1
+        }
+        else if cpuValue > playerValue {
+            cpuScore = cpuScore + 1
+        }
+        else {
+            cpuScore = cpuScore + 1
+            playerScore = playerScore + 1
+        }
+        
+        
+        
     }
 }
 
